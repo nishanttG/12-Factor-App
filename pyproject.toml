@@ -3,9 +3,9 @@ requires = ["flit_core >=3.2,<4"]
 build-backend = "flit_core.buildapi"
 
 [project]
-name = "12factorapp"
+name = "_12factorapp"
 version = "0.0.1"
-description = "Simple demo of cookiecutter"
+description = "12 Factor App"
 authors = [
   { name = "Nishant Ghimire" },
 ]
@@ -15,18 +15,18 @@ classifiers = [
     "Programming Language :: Python :: 3",
     
 ]
-requires-python = "~=3.10.0"
+requires-python = "~=3.10.6"
 
 
 [tool.ruff]
 line-length = 99
-src = ["12factorapp"]
-include = ["pyproject.toml", "12factorapp/**/*.py"]
+src = ["_12factorapp"]
+include = ["pyproject.toml", "_12factorapp/**/*.py"]
 
 [tool.ruff.lint]
 extend-select = ["I"]  # Add import sorting
 
 [tool.ruff.lint.isort]
-known-first-party = ["12factorapp"]
+known-first-party = ["_12factorapp"]
 force-sort-within-sections = true
 

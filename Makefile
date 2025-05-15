@@ -2,7 +2,7 @@
 # GLOBALS                                                                       #
 #################################################################################
 
-PROJECT_NAME = 12factorapp
+PROJECT_NAME = _12factorapp
 PYTHON_VERSION = 3.10
 PYTHON_INTERPRETER = python
 

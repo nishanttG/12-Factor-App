@@ -4,7 +4,7 @@ from loguru import logger
 from tqdm import tqdm
 import typer
 
-from 12factorapp.config import MODELS_DIR, PROCESSED_DATA_DIR
+from _12factorapp.config import MODELS_DIR, PROCESSED_DATA_DIR
 
 app = typer.Typer()
 
