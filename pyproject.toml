@@ -20,8 +20,8 @@ requires-python = "~=3.10.6"
 
 [tool.ruff]
 line-length = 99
-src = ["_12factorapp"]
-include = ["pyproject.toml", "_12factorapp/**/*.py"]
+src = ["factor12app"]
+include = ["pyproject.toml", "factor12app/**/*.py"]
 
 [tool.ruff.lint]
 extend-select = ["I"]  # Add import sorting
