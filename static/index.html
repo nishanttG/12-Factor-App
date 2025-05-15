@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Beautiful Calculator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      color: #333;
+    }
+    .calculator {
+      background: #ffffff;
+      padding: 2.5rem 3rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      width: 320px;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 1.5rem;
+      color: #0077cc;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.25rem;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 1.3rem;
+      transition: border-color 0.3s;
+    }
+    input[type="number"]:focus {
+      border-color: #0077cc;
+      outline: none;
+    }
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    button {
+      flex: 1;
+      padding: 1rem 0;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: #0077cc;
+      color: white;
+      transition: background-color 0.3s, transform 0.2s;
+      box-shadow: 0 4px 10px rgba(0, 119, 204, 0.3);
+    }
+    button:hover {
+      background-color: #005fa3;
+      transform: translateY(-2px);
+    }
+    button:active {
+      transform: translateY(1px);
+    }
+    .result {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #222;
+      min-height: 2rem;
+    }
+    .error {
+      color: #cc3300;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <h1>Simple Calculator</h1>
+    <input type="number" id="a" placeholder="Enter number A" />
+    <input type="number" id="b" placeholder="Enter number B" />
+    <div class="buttons">
+      <button onclick="calculate('add')">Add</button>
+      <button onclick="calculate('subtract')">Subtract</button>
+      <button onclick="calculate('multiply')">Multiply</button>
+      <button onclick="calculate('divide')">Divide</button>
+    </div>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    async function calculate(op) {
+      const a = parseFloat(document.getElementById('a').value);
+      const b = parseFloat(document.getElementById('b').value);
+      const resultDiv = document.getElementById('result');
+
+      if (isNaN(a) || isNaN(b)) {
+        resultDiv.innerHTML = '<span class="error">Please enter valid numbers.</span>';
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/${op}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ a, b })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          resultDiv.textContent = `Result: ${data.result}`;
+        } else {
+          resultDiv.innerHTML = `<span class="error">Error: ${data.detail}</span>`;
+        }
+      } catch (error) {
+        resultDiv.innerHTML = '<span class="error">Error connecting to the server.</span>';
+      }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+    const inputA = document.getElementById('a');
+    const inputB = document.getElementById('b');
+
+    // Move to next input on Enter in 'a'
+    inputA.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        inputB.focus();
+      }
+    });
+  });
+
+  async function calculate(op) {
+    const a = parseFloat(document.getElementById('a').value);
+    const b = parseFloat(document.getElementById('b').value);
+    if (isNaN(a) || isNaN(b)) {
+      document.getElementById('result').innerText = 'Please enter valid numbers.';
+      return;
+    }
+
+    const response = await fetch(`/api/${op}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ a, b })
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      document.getElementById('result').innerText = `Result: ${data.result}`;
+    } else {
+      document.getElementById('result').innerText = `Error: ${data.detail}`;
+    }
+  }
+  </script>
+</body>
+</html>

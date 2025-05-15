@@ -1,0 +1,14 @@
+loguru
+mkdocs
+pip
+pytest
+python-dotenv
+ruff
+tqdm
+typer
+fastapi
+uvicorn
+pydantic
+pre-commit
+httpx
+-e .
