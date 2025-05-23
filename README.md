@@ -13,4 +13,4 @@ A FastAPI app that provides basic arithmetic operations.
 
 ```bash
 pip install -r requirements.txt
-uvicorn src.calculator_api.main:app --reload
+uvicorn calculator_api.main:app --reload
